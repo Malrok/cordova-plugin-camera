@@ -768,6 +768,11 @@ private void refreshGallery(Uri contentUri)
         int srcType = (requestCode / 16) - 1;
         int destType = (requestCode % 16) - 1;
 
+		// Fix for #CB-11446
+		if ((this.allowEdit && this.croppedUri == null) || (!this.allowEdit && this.imageUri == null)) {
+			this.failPicture("Error capturing image.");
+		}
+
         // If Camera Crop
         if (requestCode >= CROP_CAMERA) {
             if (resultCode == Activity.RESULT_OK) {
